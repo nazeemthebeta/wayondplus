@@ -1,0 +1,247 @@
+/* FreeSans Font Face Declarations */
+@font-face {
+  font-family: 'FreeSans';
+  src: url('/fonts/FreeSans.ttf') format('truetype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'FreeSans';
+  src: url('/fonts/FreeSansBold.ttf') format('truetype');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+
+@import "tailwindcss";
+
+@theme {
+  --font-sans: 'FreeSans', system-ui, -apple-system, sans-serif;
+  --font-heading: 'FreeSans', system-ui, -apple-system, sans-serif;
+
+  --color-primary: #FFCD01;
+  --color-secondary: #D9D9D9;
+  --color-background: #000000;
+  --color-foreground: #FFFFFF;
+}
+
+/*
+  The default border color has changed to `currentColor` in Tailwind CSS v4,
+  so we've added these compatibility styles to sure everything still looks the same.
+*/
+@layer base {
+
+  /* Smooth scroll globally */
+  html {
+    scroll-behavior: smooth;
+  }
+
+  /* Force FreeSans font on ALL elements - no italics */
+  *,
+  *::before,
+  *::after {
+    font-family: 'FreeSans', sans-serif !important;
+    font-style: normal !important;
+    border-color: var(--color-gray-200, currentColor);
+  }
+
+  /* Reduce container padding globally */
+  .container {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+
+  /* Global h2 styling */
+  h2 {
+    font-weight: 700 !important;
+    font-size: 50px !important;
+    line-height: 100% !important;
+    letter-spacing: -0.05em !important;
+  }
+
+  /* Responsive h2 for mobile */
+  @media (max-width: 768px) {
+    h2 {
+      font-size: 32px !important;
+    }
+  }
+
+  /* Animation Keyframes */
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+    }
+
+    to {
+      opacity: 1;
+    }
+  }
+
+  @keyframes slideUp {
+    from {
+      opacity: 0;
+      transform: translateY(30px);
+    }
+
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes scaleIn {
+    from {
+      opacity: 0;
+      transform: scale(0.95);
+    }
+
+    to {
+      opacity: 1;
+      transform: scale(1);
+    }
+  }
+
+  @keyframes float {
+
+    0%,
+    100% {
+      transform: translateY(0);
+    }
+
+    50% {
+      transform: translateY(-10px);
+    }
+  }
+
+  /* Animation utility classes */
+  .animate-fade-in {
+    animation: fadeIn 0.6s ease-out forwards;
+  }
+
+  .animate-slide-up {
+    animation: slideUp 0.6s ease-out forwards;
+  }
+
+  .animate-scale-in {
+    animation: scaleIn 0.5s ease-out forwards;
+  }
+
+  .animate-float {
+    animation: float 3s ease-in-out infinite;
+  }
+
+  /* Staggered animation delays */
+  .delay-100 {
+    animation-delay: 0.1s;
+  }
+
+  .delay-200 {
+    animation-delay: 0.2s;
+  }
+
+  .delay-300 {
+    animation-delay: 0.3s;
+  }
+
+  .delay-400 {
+    animation-delay: 0.4s;
+  }
+
+  .delay-500 {
+    animation-delay: 0.5s;
+  }
+
+  /* Initial state for animated elements */
+  .animate-on-scroll {
+    opacity: 0;
+  }
+
+  /* Hover transition for interactive elements */
+  button,
+  a,
+  .interactive {
+    transition: all 0.3s ease;
+  }
+}
+
+@layer utilities {
+  body {
+    font-family: var(--font-sans);
+    background-color: var(--color-background);
+    color: var(--color-foreground);
+  }
+
+  /* Hide scrollbar for Chrome, Safari and Opera */
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+
+  /* Hide scrollbar for IE, Edge, and Firefox */
+  .no-scrollbar {
+    -ms-overflow-style: none;
+    /* IE and Edge */
+    scrollbar-width: none;
+    /* Firefox */
+  }
+
+  /* Custom Phone Input Styling */
+  .phone-input-custom .PhoneInputInput {
+    background: transparent;
+    border: none;
+    color: white;
+    font-size: 15px;
+    outline: none;
+    padding: 0;
+  }
+
+  .phone-input-custom .PhoneInputInput::placeholder {
+    color: white;
+  }
+
+  .phone-input-custom .PhoneInputCountrySelect {
+    background: transparent;
+    border: none;
+    color: white;
+    margin-right: 8px;
+  }
+
+  .phone-input-custom .PhoneInputCountryIcon {
+    width: 24px;
+    height: 18px;
+    margin-right: 4px;
+  }
+
+  .phone-input-custom .PhoneInputCountrySelectArrow {
+    color: white;
+    opacity: 0.8;
+    width: 12px;
+    height: 12px;
+  }
+
+  /* Dropdown Menu Styling */
+  .PhoneInputCountrySelect option {
+    background: black;
+    color: white;
+    padding: 8px;
+  }
+
+  .PhoneInputCountrySelect {
+    background: black !important;
+    color: white !important;
+    border: 1px solid #FFCD01 !important;
+    border-radius: 8px !important;
+    padding: 4px !important;
+  }
+
+  .PhoneInputCountrySelect:focus {
+    outline: none;
+    border-color: #FFCD01 !important;
+  }
+
+  .PhoneInputCountrySelect option:hover {
+    background: #1a1a1a;
+  }
+}
