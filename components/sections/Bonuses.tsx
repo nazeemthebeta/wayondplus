@@ -66,7 +66,7 @@ const bonuses: Bonus[] = [
 
 function BonusCard({ bonus }: { bonus: Bonus }) {
     return (
-        <div className="relative w-[446px] h-[514px] shrink-0">
+        <div className="relative w-[320px] md:w-[446px] h-[400px] md:h-[514px] shrink-0">
             {/* OUTER GLASS CARD */}
             <div className="absolute inset-0 rounded-[30px] overflow-hidden border border-white/[0.10] bg-white/[0.04] backdrop-blur-2xl shadow-[0_30px_80px_rgba(0,0,0,0.55)]">
 
@@ -86,24 +86,24 @@ function BonusCard({ bonus }: { bonus: Bonus }) {
             </div>
 
             {/* INNER GLASS PANEL (Figma: 346x414 @ 50,50) */}
-            <div className="absolute left-[50px] top-[50px] w-[346px] h-[414px] rounded-[30px] bg-white/[0.10] border border-white/[0.12] backdrop-blur-2xl">
+            <div className="absolute left-[30px] md:left-[50px] top-[30px] md:top-[50px] w-[260px] md:w-[346px] h-[340px] md:h-[414px] rounded-[20px] md:rounded-[30px] bg-white/[0.10] border border-white/[0.12] backdrop-blur-2xl">
                 {/* Title (Figma: x=30,y=30; font 30/33) */}
-                <h3 className="absolute left-[30px] top-[30px] w-[272px] font-heading font-bold text-[30px] leading-[33px] tracking-[-0.05em] text-white whitespace-pre-line">
+                <h3 className="absolute left-[20px] md:left-[30px] top-[20px] md:top-[30px] w-[220px] md:w-[272px] font-heading font-bold text-[22px] md:text-[30px] leading-[26px] md:leading-[33px] tracking-[-0.05em] text-white whitespace-pre-line">
                     {bonus.title}
                 </h3>
 
                 {/* Description (Figma: x=30,y=116; width 272; 20/25) */}
-                <p className="absolute left-[30px] top-[116px] w-[272px] font-sans font-normal text-[20px] leading-[25px] tracking-[-0.05em] text-white">
+                <p className="absolute left-[20px] md:left-[30px] top-[90px] md:top-[116px] w-[220px] md:w-[272px] font-sans font-normal text-[14px] md:text-[20px] leading-[18px] md:leading-[25px] tracking-[-0.05em] text-white">
                     {bonus.description}
                 </p>
 
                 {/* Features block (Figma: x=80,y=186 OR y=236 depending on card) */}
                 {bonus.features?.length > 0 && (
-                    <div className="absolute left-[46px] top-[240px] w-[270px] space-y-[22px]">
+                    <div className="absolute left-[30px] md:left-[46px] top-[180px] md:top-[240px] w-[200px] md:w-[270px] space-y-[14px] md:space-y-[22px]">
                         {bonus.features.slice(0, 3).map((item, i) => (
-                            <div key={i} className="flex items-start gap-[14px]">
-                                <Icon icon={item.icon} className="w-6 h-6 text-white shrink-0 mt-[2px]" />
-                                <p className="font-sans font-normal text-[20px] leading-[25px] tracking-[-0.05em] text-white">
+                            <div key={i} className="flex items-start gap-[10px] md:gap-[14px]">
+                                <Icon icon={item.icon} className="w-5 h-5 md:w-6 md:h-6 text-white shrink-0 mt-[2px]" />
+                                <p className="font-sans font-normal text-[14px] md:text-[20px] leading-[18px] md:leading-[25px] tracking-[-0.05em] text-white">
                                     {item.text}
                                 </p>
                             </div>
@@ -167,7 +167,7 @@ const Bonuses = () => {
 
                     {/* Optional: subtle fade edges (nice UX) */}
                     {/* <div className="pointer-events-none absolute inset-y-0 left-0 w-20 bg-gradient-to-r from-black to-transparent" /> */}
-                    <div className="pointer-events-none absolute inset-y-0 right-0 w-20 bg-gradient-to-l from-black to-transparent" />
+                    <div className="pointer-events-none absolute inset-y-0 right-0 w-20 bg-gradient-to-l from-black to-transparent hidden md:block" />
 
                     {/* Navigation Buttons - Bottom Right */}
                     <div className="absolute bottom-6 right-0 flex gap-4 z-10">

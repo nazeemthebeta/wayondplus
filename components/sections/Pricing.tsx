@@ -112,14 +112,14 @@ const Pricing = () => {
                             {/* Divider */}
                             <div className="hidden lg:block w-px bg-white/10 self-stretch" />
 
-                            <div className="flex-1 p-8 md:p-[25px]">
+                            <div className="flex-1 p-4 md:p-[25px]">
                                 {/* right-panel subtle internal sheen */}
                                 {/* <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(255,255,255,0.07),transparent_45%,rgba(0,0,0,0.25))]" /> */}
                                 <div className="absolute inset-0 shadow-[inset_0_1px_0_rgba(255,255,255,0.12)]" />
 
-                                <div className="relative p-8 md:p-4">
+                                <div className="relative p-4 md:p-4 flex flex-col items-center">
                                     {/* Title glass */}
-                                    <div className="relative w-full min-w-[320px] rounded-[20px] border border-white/10 bg-white/[0.035] backdrop-blur-2xl shadow-[0_35px_90px_rgba(0,0,0,0.70),inset_0_1px_0_rgba(255,255,255,0.12),inset_0_-1px_0_rgba(0,0,0,0.55)] overflow-hidden">
+                                    <div className="relative w-full max-w-[400px] rounded-[20px] border border-white/10 bg-white/[0.035] backdrop-blur-2xl shadow-[0_35px_90px_rgba(0,0,0,0.70),inset_0_1px_0_rgba(255,255,255,0.12),inset_0_-1px_0_rgba(0,0,0,0.55)] overflow-hidden">
                                         {/* Top-right corner shine */}
                                         <div className="absolute top-0 right-0 w-[100px] h-[100px] bg-[radial-gradient(circle_at_100%_0%,rgba(7, 7, 7, 0.15),transparent_70%)] pointer-events-none" />
                                         {/* Bottom-left corner shine */}

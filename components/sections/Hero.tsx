@@ -8,7 +8,7 @@ const Hero = () => {
     const [isPlaying, setIsPlaying] = useState(false);
 
     return (
-        <section className="relative w-full min-h-screen flex flex-col items-center justify-start bg-black text-white px-4 overflow-hidden pt-40 md:pt-48">
+        <section className="relative w-full md:min-h-screen flex flex-col items-center justify-start bg-black text-white px-4 overflow-hidden pt-32 md:pt-48 pb-4 md:pb-0">
 
             {/* Background Graph & Indicator */}
             <div className="absolute top-0 left-0 w-full h-full pointer-events-none select-none overflow-hidden">

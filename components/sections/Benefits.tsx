@@ -9,7 +9,7 @@ const benefits = [
         line1: "Exclusive Webinars",
         line2: "with Top Traders",
         description: "Wayond Plus presents exclusive weekly and monthly webinars crafted just for our members. Join experienced traders from Dubai as they share invaluable insights, delivering practical analyses and live commentary on current market trends.",
-        image: "/images/benefit_exclusive-webinars.jpg"
+        image: "/images/exclusive-webinars.jpg"
     },
     {
         tag: "Winning Tools",
@@ -67,10 +67,10 @@ const Benefits = () => {
     };
 
     return (
-        <section className="bg-black py-16 md:py-24 overflow-hidden">
+        <section className="bg-black py-6 md:py-24 overflow-hidden">
             <div className="container mx-auto flex flex-col items-center px-4">
                 <AnimateOnScroll animation="fade-in">
-                    <h2 className="text-center text-white mb-10 md:mb-16 max-w-[600px] mx-auto">
+                    <h2 className="text-center text-white mb-6 md:mb-16 max-w-[600px] mx-auto text-[24px] md:text-[40px]">
                         5 Benefits you receive with <span className="text-primary">Wayond Plus:</span>
                     </h2>
                 </AnimateOnScroll>
@@ -78,13 +78,13 @@ const Benefits = () => {
                 {/* Horizontal Scroll / Grid Container */}
                 <div
                     ref={scrollRef}
-                    className="flex gap-6 md:gap-[76px] overflow-x-auto py-8 md:py-12 px-4 no-scrollbar snap-x snap-mandatory scroll-smooth w-full"
+                    className="flex gap-4 md:gap-[76px] overflow-x-auto py-4 md:py-12 px-2 md:px-4 no-scrollbar snap-x snap-mandatory scroll-smooth w-full"
                     onScroll={() => {
                         // Optional: Update active index on scroll
                     }}
                 >
                     {benefits.map((benefit, index) => (
-                        <div key={index} className="flex-none snap-center w-[300px] md:w-[381px] h-[500px] md:h-[596px] relative group">
+                        <div key={index} className="flex-none snap-center w-[260px] md:w-[381px] h-[420px] md:h-[596px] relative group">
 
                             {/* Background Rectangles (Decorations) - Positioned relative to this wrapper */}
                             {/* Top Left - Offset */}
@@ -93,10 +93,10 @@ const Benefits = () => {
                             <div className="absolute bottom-[-12px] md:bottom-[-16px] right-[-12px] md:right-[-16px] w-[120px] md:w-[171px] h-[150px] md:h-[203px] bg-[#FFCD01] rounded-[20px] md:rounded-[30px] z-0 transition-transform group-hover:scale-105 duration-300" />
 
                             {/* Main Card Container */}
-                            <div className="w-full h-full bg-[#FFCD01] rounded-[32px] md:rounded-[48px] border-[3px] md:border-[5px] border-white p-4 md:p-5 flex flex-col relative shadow-[0_4px_4px_rgba(0,0,0,0.25)] z-10 transition-all hover:-translate-y-2 hover:shadow-xl duration-300">
+                            <div className="w-full h-full bg-[#FFCD01] rounded-[24px] md:rounded-[48px] border-[2px] md:border-[5px] border-white p-3 md:p-5 flex flex-col relative shadow-[0_4px_4px_rgba(0,0,0,0.25)] z-10 transition-all hover:-translate-y-2 hover:shadow-xl duration-300">
 
                                 {/* Image Container */}
-                                <div className="relative w-full h-[320px] bg-white rounded-[32px] overflow-hidden shadow-sm flex-shrink-0">
+                                <div className="relative w-full h-[220px] md:h-[320px] bg-white rounded-[20px] md:rounded-[32px] overflow-hidden shadow-sm flex-shrink-0">
                                     <Image
                                         src={benefit.image}
                                         alt={benefit.tag}
@@ -107,13 +107,13 @@ const Benefits = () => {
                                     <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(255,255,255,0)_38.89%,#FFFFFF_79.73%)] z-10" />
 
                                     {/* Tag Overlay - Flat Top, Rounded Bottom ("Pill" half) */}
-                                    <div className="absolute top-0 left-[calc(50%-182.5px/2-0.25px)] w-[182.5px] h-[30px] bg-white flex items-center justify-center rounded-b-[24px] z-20">
-                                        <span className="text-[15px] font-sans font-semibold text-black tracking-[-0.05em]">{benefit.tag}</span>
+                                    <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[140px] md:w-[182.5px] h-[24px] md:h-[30px] bg-white flex items-center justify-center rounded-b-[16px] md:rounded-b-[24px] z-20">
+                                        <span className="text-[12px] md:text-[15px] font-sans font-semibold text-black tracking-[-0.05em]">{benefit.tag}</span>
                                     </div>
 
                                     {/* Title Overlay at Bottom of Image */}
-                                    <div className="absolute bottom-6 left-0 w-full px-4 z-20 text-center">
-                                        <h3 className="text-[30px] text-left font-heading font-normal leading-[1.1] text-black">
+                                    <div className="absolute bottom-4 md:bottom-6 left-0 w-full px-3 md:px-4 z-20 text-center">
+                                        <h3 className="text-[20px] md:text-[30px] text-left font-heading font-normal leading-[1.1] text-black">
                                             {benefit.line1} <br />
                                             {/* @ts-ignore - dynamic data check */}
                                             <span className="font-bold">{benefit.line2}</span>
@@ -122,8 +122,8 @@ const Benefits = () => {
                                 </div>
 
                                 {/* Text Content */}
-                                <div className="pt-6 px-2 flex flex-col gap-3 flex-grow text-center">
-                                    <p className="text-[18px] font-sans font-normal text-left leading-[1.4] text-black/90 tracking-tight">
+                                <div className="pt-3 md:pt-6 px-1 md:px-2 flex flex-col gap-2 md:gap-3 flex-grow text-center overflow-hidden">
+                                    <p className="text-[13px] md:text-[18px] font-sans font-normal text-left leading-[1.3] md:leading-[1.4] text-black/90 tracking-tight line-clamp-4 md:line-clamp-none">
                                         {benefit.description}
                                     </p>
                                 </div>
