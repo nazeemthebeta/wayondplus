@@ -3,11 +3,22 @@
 import React from "react";
 import { Icon } from "@iconify/react";
 
+interface BonusFeature {
+    icon: string;
+    text: string;
+}
+
+interface Bonus {
+    title: string;
+    description: string;
+    features: BonusFeature[];
+}
+
 /**
  * 6 cards (add/edit content as needed)
  * icons are per-feature for cards that have a list
  */
-const bonuses = [
+const bonuses: Bonus[] = [
     {
         title: "Proven Trade \n Setups Vault",
         description:
@@ -53,7 +64,7 @@ const bonuses = [
     },
 ];
 
-function BonusCard({ bonus }) {
+function BonusCard({ bonus }: { bonus: Bonus }) {
     return (
         <div className="relative w-[446px] h-[514px] shrink-0">
             {/* OUTER GLASS CARD */}
