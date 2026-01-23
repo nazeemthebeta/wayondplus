@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { Icon } from "@iconify/react";
 
 interface BonusFeature {
@@ -68,7 +68,7 @@ function BonusCard({ bonus }: { bonus: Bonus }) {
     return (
         <div className="relative w-[320px] md:w-[446px] h-[400px] md:h-[514px] shrink-0">
             {/* OUTER GLASS CARD */}
-            <div className="absolute inset-0 rounded-[30px] overflow-hidden border border-white/[0.10] bg-white/[0.04] backdrop-blur-2xl shadow-[0_30px_80px_rgba(0,0,0,0.55)]">
+            <div className="absolute inset-0 rounded-[30px] overflow-hidden border border-white/[0.10] bg-white/[0.04] backdrop-blur-2xl shadow-[0_30px_80px_rgba(0,0,0,0.55)] transform-gpu">
 
                 {/* Glow blobs (use screen blend so green shows on dark bg) */}
                 <div className="absolute w-[190px] h-[190px] -left-[55px] -top-[55px] rounded-full bg-[#00FF66] opacity-40 blur-[225px] mix-blend-screen" />
@@ -116,7 +116,48 @@ function BonusCard({ bonus }: { bonus: Bonus }) {
 }
 
 const Bonuses = () => {
-    const scrollRef = React.useRef<HTMLDivElement>(null);
+    const scrollRef = useRef<HTMLDivElement>(null);
+    const [visibleIndices, setVisibleIndices] = useState<number[]>([]);
+
+    useEffect(() => {
+        const observerOptions = {
+            root: scrollRef.current,
+            threshold: 0.5, // Consider visible if at least 50% is shown
+        };
+
+        const callback = (entries: IntersectionObserverEntry[]) => {
+            setVisibleIndices((prev) => {
+                const newVisible = [...prev];
+                entries.forEach((entry) => {
+                    const index = Number(entry.target.getAttribute("data-index"));
+                    if (entry.isIntersecting) {
+                        if (!newVisible.includes(index)) newVisible.push(index);
+                    } else {
+                        const idx = newVisible.indexOf(index);
+                        if (idx > -1) newVisible.splice(idx, 1);
+                    }
+                });
+                return [...newVisible].sort((a, b) => a - b);
+            });
+        };
+
+        const observer = new IntersectionObserver(callback, observerOptions);
+        const currentRef = scrollRef.current;
+        if (currentRef) {
+            const children = currentRef.children;
+            for (let i = 0; i < children.length; i++) {
+                observer.observe(children[i]);
+            }
+        }
+
+        return () => observer.disconnect();
+    }, []);
+
+    const isHoverable = (idx: number) => {
+        // Only the first two visible cards from the left are hoverable
+        const activeVisible = visibleIndices.slice(0, 2);
+        return activeVisible.includes(idx);
+    };
 
     const scroll = (direction: "left" | "right") => {
         if (scrollRef.current) {
@@ -153,13 +194,18 @@ const Bonuses = () => {
                 </div>
 
                 {/* Horizontal scroll */}
-                <div className="relative">
+                <div className="relative isolate">
                     <div
                         ref={scrollRef}
                         className="flex gap-6 md:gap-12 overflow-x-auto pb-6 snap-x snap-mandatory scroll-smooth [-webkit-overflow-scrolling:touch] hide-scrollbar"
                     >
                         {bonuses.map((bonus, idx) => (
-                            <div key={idx} className="snap-start transition-transform hover:scale-[1.02] duration-300">
+                            <div
+                                key={idx}
+                                data-index={idx}
+                                className={`snap-start transition-transform duration-300 transform-gpu will-change-transform ${isHoverable(idx) ? "hover:scale-[1.02]" : ""
+                                    }`}
+                            >
                                 <BonusCard bonus={bonus} />
                             </div>
                         ))}
@@ -170,16 +216,16 @@ const Bonuses = () => {
                     <div className="pointer-events-none absolute inset-y-0 right-0 w-20 bg-gradient-to-l from-black to-transparent hidden md:block" />
 
                     {/* Navigation Buttons - Bottom Right */}
-                    <div className="absolute bottom-6 right-0 flex gap-4 z-10">
+                    <div className="absolute bottom-6 right-0 flex gap-4 z-10 transform-gpu isolate">
                         <button
                             onClick={() => scroll("left")}
-                            className="w-[60px] h-[60px] rounded-full bg-white flex items-center justify-center text-black hover:bg-gray-200 transition-colors shadow-lg"
+                            className="w-[60px] h-[60px] rounded-full bg-white flex items-center justify-center text-black"
                         >
                             <Icon icon="mdi:chevron-left" className="w-8 h-8" />
                         </button>
                         <button
                             onClick={() => scroll("right")}
-                            className="w-[60px] h-[60px] rounded-full bg-white flex items-center justify-center text-black hover:bg-gray-200 transition-colors shadow-lg"
+                            className="w-[60px] h-[60px] rounded-full bg-white flex items-center justify-center text-black"
                         >
                             <Icon icon="mdi:chevron-right" className="w-8 h-8" />
                         </button>
