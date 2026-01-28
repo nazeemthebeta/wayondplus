@@ -40,7 +40,7 @@ const benefits = [
     {
         tag: "Exclusive Content",
         line1: "Members Only",
-        line2: "Special Episodes",
+        line2: "<b>Special Episodes</b>",
         description:
             "Unlock the complete, unedited versions of Wayond’s most popular series:<br />•	Passionz: Documentary<br/>• Strategyz: Trading Skills &<br />&emsp;&emsp;&emsp;&emsp;&emsp;Mindset",
         image: "/images/exclusive-content.jpg",
@@ -216,11 +216,22 @@ const Benefits = () => {
                                     <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(255,255,255,0)_38.89%,#FFFFFF_79.73%)] z-10" />
 
                                     {/* Tag */}
-                                    <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[140px] md:w-[182.5px] h-[24px] md:h-[30px] bg-white flex items-center justify-center rounded-b-[16px] md:rounded-b-[24px] z-20">
-                                        <span
-                                            className="text-[12px] md:text-[15px] font-sans font-semibold text-black tracking-[-0.05em]"
-                                            dangerouslySetInnerHTML={{ __html: benefit.tag }}
+                                    <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[150px] md:w-[200px] h-[36px] md:h-[42px] z-20">
+                                        <div
+                                            className="absolute inset-0 bg-white"
+                                            style={{
+                                                /* ADJUST THE TAG CORNER RADIUS HERE */
+                                                borderRadius: "0 0 12px 12px",
+                                                transform: "perspective(100px) rotateX(-35deg)",
+                                                transformOrigin: "top",
+                                            }}
                                         />
+                                        <div className="absolute inset-0 flex items-center justify-center pb-1 md:pb-1.5">
+                                            <span
+                                                className="text-[12px] md:text-[15px] font-sans font-semibold text-black tracking-[-0.05em]"
+                                                dangerouslySetInnerHTML={{ __html: benefit.tag }}
+                                            />
+                                        </div>
                                     </div>
 
                                     {/* Title */}
