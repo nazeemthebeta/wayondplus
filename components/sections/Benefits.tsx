@@ -8,42 +8,42 @@ const benefits = [
     {
         tag: "Exclusive Webinars",
         line1: "Exclusive Webinars",
-        line2: "with Top Traders",
+        line2: "with <b> Top Traders </b>",
         description:
             "Wayond Plus presents exclusive weekly and monthly webinars crafted just for our members. Join experienced traders from Dubai as they share invaluable insights, delivering practical analyses and live commentary on current market trends.",
         image: "/images/exclusive-webinars.jpg",
     },
     {
         tag: "Winning Tools",
-        line1: "Exclusive Access to",
-        line2: "Trading Tools",
+        line1: "Exclusive Access",
+        line2: "to <b>Trading Tools</b>",
         description:
-            "Access exclusive automated trading tools recommended by Wayond, along with community support and practical resources at special deals. Our proven strategy can help you achieve growth of up to 10x, even with a modest investment.",
+            "Access exclusive automated trading tools recommended by Wayond, along with community support and practical resources at special deals. <br/> <br/> Our proven strategy can help you achieve growth of up to 10x, even with a modest investment.",
         image: "/images/winning-tools.jpg",
     },
     {
         tag: "Market Insights",
         line1: "Exclusive",
-        line2: "Pro Traders",
+        line2: "<b>Pro Traders</b>",
         description:
-            "Discover the powerful strategies, mindset, and execution framework of elite traders in Dubai through engaging live sessions and exclusive video content. Don't miss this opportunity to elevate your trading skills!",
+            "Discover the powerful strategies, mindset, and execution framework of elite traders in Dubai through engaging live sessions and exclusive video content. <br /> <br />Don't miss this opportunity to elevate your trading skills!",
         image: "/images/market-insights.jpg",
+    },
+    {
+        tag: "Exclusive Bonuses",
+        line1: "Members Only",
+        line2: "<b>Rewards</b>",
+        description:
+            "Access exclusive bonuses, exciting giveaways, and limited-time offers available exclusively for members. <br /> <br /> Don't miss out on these incredible perks!",
+        image: "/images/exclusive-bonus.jpg",
     },
     {
         tag: "Exclusive Content",
         line1: "Members Only",
         line2: "Special Episodes",
         description:
-            "Unlock the complete, unedited versions of Wayond’s most popular series: • Passionz: Documentary • Strategyz: Trading Skills & Mindset",
+            "Unlock the complete, unedited versions of Wayond’s most popular series:<br />•	Passionz: Documentary<br/>• Strategyz: Trading Skills &<br />&emsp;&emsp;&emsp;&emsp;&emsp;Mindset",
         image: "/images/exclusive-content.jpg",
-    },
-    {
-        tag: "Exclusive Bonuses",
-        line1: "Members Only",
-        line2: "Rewards",
-        description:
-            "Access exclusive bonuses, exciting giveaways, and limited-time offers available exclusively for members. Don't miss out on these incredible perks!",
-        image: "/images/exclusive-bonus.jpg",
     },
 ];
 
@@ -217,25 +217,29 @@ const Benefits = () => {
 
                                     {/* Tag */}
                                     <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[140px] md:w-[182.5px] h-[24px] md:h-[30px] bg-white flex items-center justify-center rounded-b-[16px] md:rounded-b-[24px] z-20">
-                                        <span className="text-[12px] md:text-[15px] font-sans font-semibold text-black tracking-[-0.05em]">
-                                            {benefit.tag}
-                                        </span>
+                                        <span
+                                            className="text-[12px] md:text-[15px] font-sans font-semibold text-black tracking-[-0.05em]"
+                                            dangerouslySetInnerHTML={{ __html: benefit.tag }}
+                                        />
                                     </div>
 
                                     {/* Title */}
                                     <div className="absolute bottom-4 md:bottom-6 left-0 w-full px-3 md:px-4 z-20 text-center">
                                         <h3 className="text-[20px] md:text-[30px] text-left font-heading font-normal leading-[1.1] text-black">
-                                            {benefit.line1} <br />
-                                            <span className="font-bold">{benefit.line2}</span>
+                                            <span dangerouslySetInnerHTML={{ __html: benefit.line1 }} /> <br />
+                                            <span
+                                                dangerouslySetInnerHTML={{ __html: benefit.line2 }}
+                                            />
                                         </h3>
                                     </div>
                                 </div>
 
                                 {/* Text */}
                                 <div className="pt-3 md:pt-6 px-1 md:px-2 flex flex-col gap-2 md:gap-3 flex-grow text-center overflow-hidden">
-                                    <p className="text-[13px] md:text-[18px] font-sans font-normal text-left leading-[1.3] md:leading-[1.4] text-black/90 tracking-tight line-clamp-4 md:line-clamp-none">
-                                        {benefit.description}
-                                    </p>
+                                    <p
+                                        className="text-[13px] md:text-[18px] font-sans font-normal text-left leading-[1.3] md:leading-[1.4] text-black/90 tracking-tight line-clamp-4 md:line-clamp-none"
+                                        dangerouslySetInnerHTML={{ __html: benefit.description }}
+                                    />
                                 </div>
                             </div>
                         </div>

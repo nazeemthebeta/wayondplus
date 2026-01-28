@@ -88,14 +88,16 @@ function BonusCard({ bonus }: { bonus: Bonus }) {
             {/* INNER GLASS PANEL (Figma: 346x414 @ 50,50) */}
             <div className="absolute left-[30px] md:left-[50px] top-[30px] md:top-[50px] w-[260px] md:w-[346px] h-[340px] md:h-[414px] rounded-[20px] md:rounded-[30px] bg-white/[0.10] border border-white/[0.12] backdrop-blur-2xl">
                 {/* Title (Figma: x=30,y=30; font 30/33) */}
-                <h3 className="absolute left-[20px] md:left-[30px] top-[20px] md:top-[30px] w-[220px] md:w-[272px] font-heading font-bold text-[22px] md:text-[30px] leading-[26px] md:leading-[33px] tracking-[-0.05em] text-white whitespace-pre-line">
-                    {bonus.title}
-                </h3>
+                <h3
+                    className="absolute left-[20px] md:left-[30px] top-[20px] md:top-[30px] w-[220px] md:w-[272px] font-heading font-bold text-[22px] md:text-[30px] leading-[26px] md:leading-[33px] tracking-[-0.05em] text-white whitespace-pre-line"
+                    dangerouslySetInnerHTML={{ __html: bonus.title }}
+                />
 
                 {/* Description (Figma: x=30,y=116; width 272; 20/25) */}
-                <p className="absolute left-[20px] md:left-[30px] top-[90px] md:top-[116px] w-[220px] md:w-[272px] font-sans font-normal text-[14px] md:text-[20px] leading-[18px] md:leading-[25px] tracking-[-0.05em] text-white">
-                    {bonus.description}
-                </p>
+                <p
+                    className="absolute left-[20px] md:left-[30px] top-[90px] md:top-[116px] w-[220px] md:w-[272px] font-sans font-normal text-[14px] md:text-[20px] leading-[18px] md:leading-[25px] tracking-[-0.05em] text-white"
+                    dangerouslySetInnerHTML={{ __html: bonus.description }}
+                />
 
                 {/* Features block (Figma: x=80,y=186 OR y=236 depending on card) */}
                 {bonus.features?.length > 0 && (
@@ -103,9 +105,10 @@ function BonusCard({ bonus }: { bonus: Bonus }) {
                         {bonus.features.slice(0, 3).map((item, i) => (
                             <div key={i} className="flex items-start gap-[10px] md:gap-[14px]">
                                 <Icon icon={item.icon} className="w-5 h-5 md:w-6 md:h-6 text-white shrink-0 mt-[2px]" />
-                                <p className="font-sans font-normal text-[14px] md:text-[20px] leading-[18px] md:leading-[25px] tracking-[-0.05em] text-white">
-                                    {item.text}
-                                </p>
+                                <p
+                                    className="font-sans font-normal text-[14px] md:text-[20px] leading-[18px] md:leading-[25px] tracking-[-0.05em] text-white"
+                                    dangerouslySetInnerHTML={{ __html: item.text }}
+                                />
                             </div>
                         ))}
                     </div>
