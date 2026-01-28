@@ -2,6 +2,7 @@ import Header from "@/components/layout/Header";
 import Hero from "@/components/sections/Hero";
 import Benefits from "@/components/sections/Benefits";
 import WhatIsWayond from "@/components/sections/WhatIsWayond";
+import JoinNow from "@/components/sections/JoinNow";
 import WhoCanBenefit from "@/components/sections/WhoCanBenefit";
 
 import Bonuses from "@/components/sections/Bonuses";
@@ -19,6 +20,7 @@ export default function Home() {
       <Benefits />
       <WhatIsWayond />
       <WhoCanBenefit />
+      <JoinNow />
       <Bonuses />
       <Pricing />
       <Contact />

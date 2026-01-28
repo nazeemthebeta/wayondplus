@@ -129,10 +129,10 @@ const Benefits = () => {
     }, [autoPaused, centerToIndex]);
 
     return (
-        <section className="bg-black py-6 md:py-24 overflow-hidden">
+        <section className="bg-black pt-1 pb-none md:pt-6 md:pb-none overflow-hidden">
             <div className="container mx-auto flex flex-col items-center px-4">
                 <AnimateOnScroll animation="fade-in">
-                    <h2 className="text-center text-white mb-6 md:mb-16 max-w-[600px] mx-auto text-[24px] md:text-[40px]">
+                    <h2 className="text-center text-white mb-4 md:mb-12 max-w-[600px] mx-auto text-[24px] md:text-[40px]">
                         5 Benefits you receive with{" "}
                         <span className="text-primary">Wayond Plus:</span>
                     </h2>
@@ -205,7 +205,7 @@ const Benefits = () => {
                             {/* Main Card */}
                             <div className="w-full h-full bg-[#FFCD01] rounded-[24px] md:rounded-[48px] border-[2px] md:border-[5px] border-white p-3 md:p-5 flex flex-col relative shadow-[0_4px_4px_rgba(0,0,0,0.25)] z-10 transition-all hover:-translate-y-2 hover:shadow-xl duration-300">
                                 {/* Image */}
-                                <div className="relative w-full h-[220px] md:h-[320px] bg-white rounded-[20px] md:rounded-[32px] overflow-hidden shadow-sm flex-shrink-0">
+                                <div className="relative w-full h-[180px] md:h-[270px] bg-white rounded-[20px] md:rounded-[32px] overflow-hidden shadow-sm flex-shrink-0">
                                     <Image
                                         src={benefit.image}
                                         alt={benefit.tag}
@@ -220,7 +220,6 @@ const Benefits = () => {
                                         <div
                                             className="absolute inset-0 bg-white"
                                             style={{
-                                                /* ADJUST THE TAG CORNER RADIUS HERE */
                                                 borderRadius: "0 0 12px 12px",
                                                 transform: "perspective(100px) rotateX(-35deg)",
                                                 transformOrigin: "top",

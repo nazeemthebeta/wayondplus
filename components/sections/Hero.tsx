@@ -104,7 +104,13 @@ const Hero = () => {
                 </div>
                 {/* Video Section */}
                 <div
-                    className="relative mt-8 md:mt-16 w-full max-w-[900px] mx-auto aspect-video rounded-[20px] md:rounded-[41.23px] border-[2px] md:border-[4.12px] border-white overflow-hidden shadow-2xl group bg-black animate-scale-in delay-300 hover:shadow-primary/20 transition-shadow duration-500"
+                    className="relative mt-8 md:mt-16 w-full max-w-[1080px] mx-auto aspect-video rounded-[20px] md:rounded-[41.23px] overflow-hidden shadow-2xl group bg-black animate-scale-in delay-300 hover:shadow-primary/20 transition-shadow duration-500"
+                    style={{
+                        border: "0.5px solid transparent",
+                        backgroundImage: "linear-gradient(black, black), linear-gradient(180deg, #FFCD01 0%, #997B01 100%)",
+                        backgroundOrigin: "border-box",
+                        backgroundClip: "padding-box, border-box",
+                    }}
                     onClick={() => !isPlaying && setIsPlaying(true)}
                 >
                     {!isPlaying ? (
@@ -115,9 +121,11 @@ const Hero = () => {
 
                             {/* Play Button */}
                             <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-                                <div className="w-[62px] h-[62px] bg-[#FFCD00] rounded-full flex items-center justify-center shadow-lg transform group-hover:scale-110 transition-transform">
-                                    <svg width="22" height="22" viewBox="0 0 24 24" fill="black" xmlns="http://www.w3.org/2000/svg">
-                                        <path d="M8 5V19L19 12L8 5Z" />
+                                <div className="transform group-hover:scale-110 transition-transform">
+                                    <svg width="68" height="68" viewBox="0 0 68 68" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <circle cx="34" cy="34" r="33.5" fill="#FFCD01" />
+                                        <path d="M51.8497 34.0001L25.075 49.4583V18.5417L51.8497 34.0001Z" fill="black" />
+                                        <circle cx="34" cy="34" r="33.5" stroke="#FFCD01" />
                                     </svg>
                                 </div>
                             </div>
@@ -136,14 +144,28 @@ const Hero = () => {
                             />
 
                             {/* Play/Pause Button Overlay */}
-                            {isPaused && (
+                            {isPaused ? (
                                 <div
                                     className="absolute inset-0 flex items-center justify-center bg-black/30 cursor-pointer"
                                     onClick={togglePlayPause}
                                 >
-                                    <div className="w-[62px] h-[62px] bg-[#FFCD00] rounded-full flex items-center justify-center shadow-lg">
-                                        <svg width="22" height="22" viewBox="0 0 24 24" fill="black" xmlns="http://www.w3.org/2000/svg">
-                                            <path d="M8 5V19L19 12L8 5Z" />
+                                    <div className="transform transition-transform">
+                                        <svg width="68" height="68" viewBox="0 0 68 68" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                            <circle cx="34" cy="34" r="33.5" fill="#FFCD01" />
+                                            <path d="M51.8497 34.0001L25.075 49.4583V18.5417L51.8497 34.0001Z" fill="black" />
+                                            <circle cx="34" cy="34" r="33.5" stroke="#FFCD01" />
+                                        </svg>
+                                    </div>
+                                </div>
+                            ) : (
+                                <div
+                                    className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 bg-black/20 transition-opacity cursor-pointer"
+                                    onClick={togglePlayPause}
+                                >
+                                    <div className="transform transition-transform">
+                                        <svg width="49" height="49" viewBox="0 0 49 49" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                            <path d="M19.3333 34H23.3333V14H19.3333V34ZM25.3333 14V34H29.3333V14H25.3333Z" fill="white" />
+                                            <circle cx="24.5" cy="24.5" r="24" stroke="white" strokeOpacity="0.3" />
                                         </svg>
                                     </div>
                                 </div>
