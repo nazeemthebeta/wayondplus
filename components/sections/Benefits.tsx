@@ -129,8 +129,8 @@ const Benefits = () => {
     }, [autoPaused, centerToIndex]);
 
     return (
-        <section className="bg-black pt-1 pb-none md:pt-6 md:pb-none overflow-hidden">
-            <div className="container mx-auto flex flex-col items-center px-4">
+        <section className="relative pt-6 pb-none md:pt-10 md:pb-none overflow-hidden px-6">
+            <div className="container mx-auto max-w-[1240px] flex flex-col items-center px-4">
                 <AnimateOnScroll animation="fade-in">
                     <h2 className="text-center text-white mb-4 md:mb-12 max-w-[600px] mx-auto text-[24px] md:text-[40px]">
                         5 Benefits you receive with{" "}
@@ -143,7 +143,7 @@ const Benefits = () => {
                     ref={scrollRef}
                     className="
             flex overflow-x-auto no-scrollbar snap-x snap-mandatory scroll-smooth
-            gap-6 md:gap-12 lg:gap-[76px]
+            gap-12 md:gap-12 lg:gap-[76px]
             py-4 md:py-12
             w-full
             cursor-grab active:cursor-grabbing
@@ -182,7 +182,7 @@ const Benefits = () => {
                     onMouseLeave={() => setAutoPaused(false)}
                 >
                     {/* Left spacer so first card can snap-center */}
-                    <div className="flex-none w-[calc((100vw-78vw)/2)] md:w-[calc((100vw-381px)/2)]" />
+                    <div className="flex-none w-[calc((100%-78vw)/2)] md:w-[calc((100%-381px)/2)]" />
 
                     {benefits.map((benefit, index) => (
                         <div
@@ -192,7 +192,7 @@ const Benefits = () => {
                             }}
                             className="
                 flex-none snap-center
-                w-[78vw] max-w-[340px]
+                w-[65vw] max-w-[280px] md:max-w-none
                 md:w-[381px]
                 h-[420px] md:h-[596px]
                 relative group
@@ -247,7 +247,7 @@ const Benefits = () => {
                                 {/* Text */}
                                 <div className="pt-3 md:pt-6 px-1 md:px-2 flex flex-col gap-2 md:gap-3 flex-grow text-center overflow-hidden">
                                     <p
-                                        className="text-[13px] md:text-[18px] font-sans font-normal text-left leading-[1.3] md:leading-[1.4] text-black/90 tracking-tight line-clamp-4 md:line-clamp-none"
+                                        className="text-[15px] md:text-[18px] font-sans font-normal text-left leading-[1.3] md:leading-[1.4] text-black/90 tracking-tight"
                                         dangerouslySetInnerHTML={{ __html: benefit.description }}
                                     />
                                 </div>
@@ -256,7 +256,7 @@ const Benefits = () => {
                     ))}
 
                     {/* Right spacer so last card can snap-center */}
-                    <div className="flex-none w-[calc((100vw-78vw)/2)] md:w-[calc((100vw-381px)/2)]" />
+                    <div className="flex-none w-[calc((100%-78vw)/2)] md:w-[calc((100%-381px)/2)]" />
                 </div>
 
                 {/* Navigation Pills */}

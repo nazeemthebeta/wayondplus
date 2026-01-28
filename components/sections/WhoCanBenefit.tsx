@@ -43,7 +43,7 @@ const items = [
 
 const WhoCanBenefit = () => {
     return (
-        <section className="bg-black pt-10 pb-16 md:pb-20 px-4 md:px-6">
+        <section className="relative pt-10 pb-16 md:pb-20 px-4 md:px-6">
             <div className="container mx-auto max-w-[1240px]">
                 <h2 className="text-center text-white mb-8 md:mb-12 animate-fade-in">
                     Who can benefit from the Wayond <span className="text-primary">Plus</span> service?

@@ -9,9 +9,25 @@
 
 @font-face {
   font-family: 'FreeSans';
+  src: url('/fonts/FreeSansOblique.ttf') format('truetype');
+  font-weight: 400;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'FreeSans';
   src: url('/fonts/FreeSansBold.ttf') format('truetype');
   font-weight: 700;
   font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'FreeSans';
+  src: url('/fonts/FreeSansBoldOblique.ttf') format('truetype');
+  font-weight: 700;
+  font-style: italic;
   font-display: swap;
 }
 
@@ -39,12 +55,11 @@
     scroll-behavior: smooth;
   }
 
-  /* Force FreeSans font on ALL elements - no italics */
+  /* Force FreeSans font on ALL elements */
   *,
   *::before,
   *::after {
     font-family: 'FreeSans', sans-serif !important;
-    font-style: normal !important;
     border-color: var(--color-gray-200, currentColor);
   }
 

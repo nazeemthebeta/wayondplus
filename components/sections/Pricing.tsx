@@ -16,8 +16,8 @@ const Pricing = () => {
     ];
 
     return (
-        <section className="bg-black py-12 md:py-20 px-4 md:px-6" id="join">
-            <div className="container mx-auto max-w-[1080px]">
+        <section className="relative py-12 md:py-20 px-4 md:px-6" id="join">
+            <div className="container mx-auto max-w-[1240px]">
                 {/* wrapper needs overflow-visible for the top label */}
                 <div className="relative rounded-[20px] overflow-visible">
                     {/* Limited-Time Launch Offer Label */}
@@ -110,7 +110,12 @@ const Pricing = () => {
                             </div>
 
                             {/* Divider */}
-                            <div className="hidden lg:block w-px bg-white/10 self-stretch" />
+                            <div
+                                className="hidden lg:block w-[1px] self-stretch"
+                                style={{
+                                    background: 'linear-gradient(180deg, rgba(255, 255, 255, 0) 0%, #FFFFFF 30%, #FFFFFF 70%, rgba(255, 255, 255, 0) 100%)'
+                                }}
+                            />
 
                             <div className="flex-1 p-4 md:p-[25px]">
                                 {/* right-panel subtle internal sheen */}
@@ -160,11 +165,11 @@ const Pricing = () => {
                                                     icon="mingcute:arrows-left-fill"
                                                     className="w-6 h-6 text-white/90 transform rotate-180"
                                                 />
-                                                <span className="italic text-[16px] md:text-[20px] leading-[22px]">
+                                                <span className="text-[16px] md:text-[20px] leading-[22px]">
                                                     {item.includes("Plus") ? (
                                                         <>
                                                             {item.split("Plus")[0]}
-                                                            <span className="text-[#FFCD01] font-bold not-italic">
+                                                            <span className="text-[#FFCD01] font-normal">
                                                                 Plus
                                                             </span>
                                                             {item.split("Plus")[1]}

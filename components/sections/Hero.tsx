@@ -124,7 +124,7 @@ const Hero = () => {
                                 <div className="transform group-hover:scale-110 transition-transform">
                                     <svg width="68" height="68" viewBox="0 0 68 68" fill="none" xmlns="http://www.w3.org/2000/svg">
                                         <circle cx="34" cy="34" r="33.5" fill="#FFCD01" />
-                                        <path d="M51.8497 34.0001L25.075 49.4583V18.5417L51.8497 34.0001Z" fill="black" />
+                                        <path d="M47.2 34L27.4 45.4V22.6L47.2 34Z" fill="black" />
                                         <circle cx="34" cy="34" r="33.5" stroke="#FFCD01" />
                                     </svg>
                                 </div>
@@ -152,7 +152,7 @@ const Hero = () => {
                                     <div className="transform transition-transform">
                                         <svg width="68" height="68" viewBox="0 0 68 68" fill="none" xmlns="http://www.w3.org/2000/svg">
                                             <circle cx="34" cy="34" r="33.5" fill="#FFCD01" />
-                                            <path d="M51.8497 34.0001L25.075 49.4583V18.5417L51.8497 34.0001Z" fill="black" />
+                                            <path d="M47.2 34L27.4 45.4V22.6L47.2 34Z" fill="black" />
                                             <circle cx="34" cy="34" r="33.5" stroke="#FFCD01" />
                                         </svg>
                                     </div>

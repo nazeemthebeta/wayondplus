@@ -11,7 +11,7 @@ const Contact = () => {
     const [whatsappNumber, setWhatsappNumber] = useState<string>();
 
     return (
-        <section className="bg-black py-12 md:py-20 px-4 md:px-6" id="contact">
+        <section className="relative py-12 md:py-20 px-4 md:px-6" id="contact">
             <div className="container mx-auto max-w-[1280px]">
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 md:gap-16 items-start">
 

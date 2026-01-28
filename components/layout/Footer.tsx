@@ -53,8 +53,8 @@ const Footer = () => {
 
                     {/* CTA Text - Bottom Right Corner */}
                     <div className="text-right max-w-[459px]">
-                        <p className="text-white font-normal text-[30px] leading-[130%]">
-                            Join today and take the first step. Transform your life starting now. Unleash your true potential!
+                        <p className="text-white text-[30px] leading-[130%]">
+                            Join today and take the first step. Transform your life starting now. <b><i>Unleash your true potential!</i></b>
                         </p>
                     </div>
                 </div>

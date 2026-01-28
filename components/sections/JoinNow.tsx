@@ -6,10 +6,7 @@ import PrimaryButton from '../ui/PrimaryButton';
 
 const JoinNow = () => {
     return (
-        <section className="relative bg-black pt-12 md:pt-20 pb-16 md:pb-24 px-4 md:px-6 text-center overflow-hidden">
-            {/* Background Glow Effect */}
-            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[300px] h-[300px] bg-[#FFCD01] rounded-full blur-[225px] pointer-events-none opacity-40 animate-pulse" />
-
+        <section className="relative min-h-[80vh] flex flex-col items-center justify-center py-16 md:py-24 px-4 md:px-6 text-center">
             <div className="relative z-10 container mx-auto max-w-[900px] flex flex-col items-center gap-6 md:gap-8 animate-slide-up">
                 <h2 className="text-white text-[24px] md:text-[36px] font-heading font-bold leading-tight tracking-[-0.03em]">
                     Join now to unlock a wealth of resources and insights that can elevate your trading success!

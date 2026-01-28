@@ -57,7 +57,7 @@ const FAQ = () => {
     };
 
     return (
-        <section className="bg-black py-12 md:py-20 px-4">
+        <section className="relative py-12 md:py-20 px-4">
             <div className="container mx-auto max-w-[1240px]">
                 <h2 className="text-center text-white mb-10 md:mb-16 animate-fade-in">
                     Frequently Asked Question

@@ -175,7 +175,7 @@ const Bonuses = () => {
     };
 
     return (
-        <section className="bg-black py-20 px-6">
+        <section className="relative py-20 px-6">
             <style jsx>{`
                 .hide-scrollbar::-webkit-scrollbar {
                     display: none;
