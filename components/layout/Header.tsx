@@ -3,9 +3,14 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
+import { Icon } from "@iconify/react";
 import PrimaryButton from "../ui/PrimaryButton";
 
-const Header = () => {
+interface HeaderProps {
+    userEmail?: string;
+}
+
+const Header = ({ userEmail }: HeaderProps) => {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
 
     return (
@@ -19,19 +24,36 @@ const Header = () => {
                 {/* Desktop Navigation */}
                 <nav className="hidden md:flex items-center gap-12 text-white text-sm">
                     <Link href="#about" className="hover:text-primary transition-colors">About</Link>
-                    <Link href="#content" className="hover:text-primary transition-colors">Content</Link>
                     <Link href="#pricing" className="hover:text-primary transition-colors">Pricing</Link>
                     <Link href="#terms" className="hover:text-primary transition-colors">Terms & Privacy</Link>
                     <Link href="#contact" className="hover:text-primary transition-colors">Contact</Link>
                 </nav>
 
-                {/* CTA Button & Mobile Menu Toggle */}
-                <div className="flex items-center gap-4">
-                    <Link href="/checkout">
-                        <PrimaryButton className="h-[40px] min-w-[150px] md:h-[58px] md:min-w-[222px] !rounded-[53px] !p-[3px] md:!p-[5px]">
-                            <span className="text-[14px] md:text-[20px] leading-tight">Join Wayond Plus</span>
-                        </PrimaryButton>
-                    </Link>
+                {/* CTA Buttons & Mobile Menu Toggle */}
+                <div className="flex items-center gap-4 md:gap-6">
+                    <div className="hidden md:flex items-center gap-4">
+                        {userEmail ? (
+                            <div className="flex items-center gap-3 px-5 h-[40px] border border-white/20 bg-white/5 rounded-[10px] text-white text-[15px] tracking-[-0.05em]">
+                                <Icon icon="mdi:account-circle" className="w-5 h-5 text-[#FFCD01]" />
+                                <span>{userEmail}</span>
+                            </div>
+                        ) : (
+                            <>
+                                <Link
+                                    href="/login"
+                                    className="w-[144px] h-[40px] flex items-center justify-center border border-white rounded-[10px] text-white text-[17px] tracking-[-0.05em] hover:bg-white/10 transition-colors"
+                                >
+                                    Sign In
+                                </Link>
+                                <Link
+                                    href="/signup"
+                                    className="w-[144px] h-[40px] flex items-center justify-center bg-[linear-gradient(270deg,#C92B04_0%,#FFC700_100%)] border border-white rounded-[10px] text-white text-[17px] tracking-[-0.05em] hover:opacity-90 transition-opacity"
+                                >
+                                    Sign Up
+                                </Link>
+                            </>
+                        )}
+                    </div>
 
                     {/* Mobile Menu Button */}
                     <button
@@ -49,10 +71,34 @@ const Header = () => {
             {isMenuOpen && (
                 <div className="md:hidden absolute top-full left-0 w-full bg-black/95 text-white py-4 px-6 flex flex-col gap-4 border-t border-white/10">
                     <Link href="#about" onClick={() => setIsMenuOpen(false)}>About</Link>
-                    <Link href="#content" onClick={() => setIsMenuOpen(false)}>Content</Link>
                     <Link href="#pricing" onClick={() => setIsMenuOpen(false)}>Pricing</Link>
                     <Link href="#terms" onClick={() => setIsMenuOpen(false)}>Terms & Privacy</Link>
                     <Link href="#contact" onClick={() => setIsMenuOpen(false)}>Contact</Link>
+                    <div className="flex flex-col gap-3 pt-4 border-t border-white/10">
+                        {userEmail ? (
+                            <div className="flex items-center gap-3 px-5 h-[45px] border border-white/20 bg-white/5 rounded-[10px] text-white text-[15px] tracking-[-0.05em]">
+                                <Icon icon="mdi:account-circle" className="w-5 h-5 text-[#FFCD01]" />
+                                <span>{userEmail}</span>
+                            </div>
+                        ) : (
+                            <>
+                                <Link
+                                    href="/login"
+                                    className="w-full h-[40px] flex items-center justify-center border border-white rounded-[10px] text-white text-[17px] tracking-[-0.05em]"
+                                    onClick={() => setIsMenuOpen(false)}
+                                >
+                                    Sign In
+                                </Link>
+                                <Link
+                                    href="/signup"
+                                    className="w-full h-[40px] flex items-center justify-center bg-[linear-gradient(270deg,#C92B04_0%,#FFC700_100%)] border border-white rounded-[10px] text-white text-[17px] tracking-[-0.05em]"
+                                    onClick={() => setIsMenuOpen(false)}
+                                >
+                                    Sign Up
+                                </Link>
+                            </>
+                        )}
+                    </div>
                 </div>
             )}
         </header>
