@@ -6,6 +6,7 @@ import Image from "next/image";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import { Icon } from "@iconify/react";
+import LoginBanner from "@/components/sections/LoginBanner";
 
 const LoginPage = () => {
     const [formData, setFormData] = useState({
@@ -196,6 +197,8 @@ const LoginPage = () => {
                     </div>
                 </div>
             </section>
+
+            <LoginBanner />
 
             <Footer />
         </main>

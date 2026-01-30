@@ -1,13 +1,26 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect, Suspense } from "react";
+import { useSearchParams, useRouter } from "next/navigation";
 import Link from "next/link";
 import Image from "next/image";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import { Icon } from "@iconify/react";
+import PhoneInput from 'react-phone-number-input';
+import 'react-phone-number-input/style.css';
+import { getCountries, getCountryCallingCode } from 'react-phone-number-input';
+import en from 'react-phone-number-input/locale/en';
+
+// Map all countries from the library
+const allCountries = getCountries().map(countryCode => ({
+    name: en[countryCode],
+    code: countryCode.toLowerCase(),
+    dialCode: `+${getCountryCallingCode(countryCode)}`
+})).sort((a, b) => a.name.localeCompare(b.name));
 
 const SignupPage = () => {
+    const router = useRouter();
     const [formData, setFormData] = useState({
         email: "",
         fullName: "",
@@ -24,9 +37,29 @@ const SignupPage = () => {
 
     const [showPassword, setShowPassword] = useState(false);
     const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+    const [isEmailSent, setIsEmailSent] = useState(false);
+    const [isEmailVerified, setIsEmailVerified] = useState(false);
+    const [isOriginDropdownOpen, setIsOriginDropdownOpen] = useState(false);
+    const [originCountry, setOriginCountry] = useState(allCountries.find(c => c.code === "ae") || allCountries[0]);
+
+    // This component will handle searching for the email in the URL
+    const EmailVerificationHandler = () => {
+        const searchParams = useSearchParams();
+        useEffect(() => {
+            const emailParam = searchParams.get("email");
+            const verifiedParam = searchParams.get("verified");
+            if (emailParam) {
+                setFormData(prev => ({ ...prev, email: emailParam }));
+                if (verifiedParam === "true") {
+                    setIsEmailVerified(true);
+                }
+            }
+        }, [searchParams]);
+        return null;
+    };
 
     const features = [
-        "Full Wayond Plus library",
+        "Full Wayond <b> Plus </b> library",
         "Live & recorded trading sessions",
         "Passionz & Strategyz full episodes",
         "Exclusive bonuses",
@@ -38,7 +71,7 @@ const SignupPage = () => {
 
         if (!formData.email) {
             newErrors.email = "Email is required";
-        } else if (!/\S+@\S+\.\S+/.test(formData.email)) {
+        } else if (!/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(formData.email)) {
             newErrors.email = "Please enter a valid email address";
         }
 
@@ -74,6 +107,13 @@ const SignupPage = () => {
             ...prev,
             [name]: type === "checkbox" ? checked : value,
         }));
+
+        // Reset email verification status if email changes
+        if (name === "email") {
+            setIsEmailSent(false);
+            setIsEmailVerified(false);
+        }
+
         // Clear error when user starts typing
         if (errors[name]) {
             setErrors(prev => {
@@ -84,27 +124,44 @@ const SignupPage = () => {
         }
     };
 
+    const handleVerifyEmail = () => {
+        // Simple validation before "sending"
+        if (!formData.email || !/\S+@\S+\.\S+/.test(formData.email)) {
+            setErrors(prev => ({ ...prev, email: "Please enter a valid email address before verifying" }));
+            return;
+        }
+        // Mock backend call
+        setIsEmailSent(true);
+        console.log("Verification email sent to:", formData.email);
+    };
+
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
         if (validate()) {
             // TODO: Implement Supabase signup
             console.log("Form submitted:", formData);
+            router.push(`/signup-success?name=${encodeURIComponent(formData.fullName)}`);
         }
     };
 
     return (
         <main className="min-h-screen bg-black text-white relative overflow-hidden font-sans">
-            {/* Background Glow Effects (Based on Ellipse CSS) */}
+            {/* Background Glow Effects */}
             <div className="absolute inset-0 pointer-events-none overflow-hidden" aria-hidden="true">
-                {/* Ellipse 5 */}
-                <div className="absolute top-[-47px] left-[957px] w-[190px] h-[190px] bg-[#FFCD01] rounded-full blur-[225px] mix-blend-screen" />
-                {/* Ellipse 1 */}
-                <div className="absolute top-[593px] left-[-69px] w-[190px] h-[190px] bg-[#FFCD01] rounded-full blur-[225px] mix-blend-screen" />
-                {/* Ellipse 4 */}
-                <div className="absolute top-[2289px] left-[16px] w-[190px] h-[190px] bg-[#FFCD01] rounded-full blur-[225px] mix-blend-screen" />
+                {/* Glow near Header/Welcome text (Top Left) */}
+                <div className="absolute top-[150px] left-[-100px] w-[300px] h-[300px] bg-[#FFCD01] rounded-full blur-[200px] opacity-40 mix-blend-screen animate-float" />
+
+                {/* Glow near Bottom Right of the form */}
+                <div className="absolute top-[800px] right-[-150px] w-[400px] h-[400px] bg-[#FFCD01] rounded-full blur-[250px] opacity-30 mix-blend-screen" />
+
+                {/* Center subtle glow */}
+                <div className="absolute top-[50%] left-[50%] -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-[#FFCD01] rounded-full blur-[300px] opacity-10 mix-blend-screen" />
             </div>
 
             <Header />
+            <Suspense fallback={null}>
+                <EmailVerificationHandler />
+            </Suspense>
 
             {/* Main Content */}
             <section className="relative pt-24 md:pt-48 pb-16 px-4 md:px-6">
@@ -139,12 +196,12 @@ const SignupPage = () => {
                                         fill
                                         className="object-cover mix-blend-luminosity"
                                     />
-                                    <div className="absolute inset-0 bg-black/30" />
+                                    <div className="absolute inset-0 bg-black/50" />
 
                                     {/* Content Overlay */}
-                                    <div className="absolute inset-0 p-6 md:p-8 flex flex-col">
+                                    <div className="absolute inset-0 p-6 md:p-8 pb-12 md:pb-24 flex flex-col">
                                         <div>
-                                            <p className="text-white text-[32px] md:text-[50px] leading-[100%] tracking-[-0.05em] font-bold">
+                                            <p className="text-white text-[24px] md:text-[32px] leading-[100%] tracking-[-0.05em] font-medium opacity-90">
                                                 Wayond Plus
                                             </p>
                                             <p className="text-white text-[32px] md:text-[50px] leading-[100%] tracking-[-0.05em] mt-2 font-bold">
@@ -154,23 +211,24 @@ const SignupPage = () => {
 
                                         {/* Features */}
                                         <div className="mt-auto">
-                                            <p className="text-white text-[24px] md:text-[30px] leading-[100%] tracking-[-0.05em] mb-6 font-normal">
-                                                Limited-Time Launch Offer<br />
-                                                Wayond <span className="text-[#FFCD01]">Plus</span> Membership.<br />
-                                                All access, No compromises.<br />
-                                                <span className="font-bold">Includes:</span>
-                                            </p>
+                                            <div className="text-white text-[24px] md:text-[30px] font-medium leading-[100%] tracking-[-0.05em] mb-8">
+                                                <p>Limited-Time Launch Offer</p>
+                                                <p>Wayond <span className="text-[#FFCD01]">Plus</span> Membership.</p>
+                                                <p>All access, No compromises.</p>
+                                                <p>Includes:</p>
+                                            </div>
 
                                             <ul className="flex flex-col gap-2">
                                                 {features.map((feature, i) => (
                                                     <li key={i} className="flex items-center gap-3 text-white">
                                                         <Icon
                                                             icon="mingcute:arrows-left-fill"
-                                                            className="w-5 h-5 text-white transform rotate-180 flex-shrink-0"
+                                                            className="w-6 h-6 text-white transform rotate-180 flex-shrink-0"
                                                         />
-                                                        <span className="text-[14px] md:text-[15px] leading-[21px] font-normal">
-                                                            {feature}
-                                                        </span>
+                                                        <span
+                                                            className="text-[14px] md:text-[15px] leading-[21px] font-medium"
+                                                            dangerouslySetInnerHTML={{ __html: feature }}
+                                                        />
                                                     </li>
                                                 ))}
                                             </ul>
@@ -224,7 +282,7 @@ const SignupPage = () => {
                                     <div className="flex flex-col gap-2">
                                         <div className="flex justify-between items-center">
                                             <label className="text-white text-[18px] md:text-[20px] leading-[22px] tracking-[-0.05em]">
-                                                Email<span className="text-[#FFCD01]">*</span>
+                                                Email<span className="text-[#FF0000]">*</span>
                                             </label>
                                             {errors.email && (
                                                 <span className="text-red-500 text-[14px] md:text-[16px] tracking-[-0.05em]">
@@ -239,22 +297,56 @@ const SignupPage = () => {
                                                 value={formData.email}
                                                 onChange={handleInputChange}
                                                 placeholder="jhondoesamplemail@gmail.com"
-                                                className={`w-full h-[57px] bg-transparent border-[0.5px] rounded-[10px] px-5 text-white text-[16px] tracking-[-0.05em] placeholder:text-white/50 focus:border-[#FFCD01] focus:outline-none transition-colors ${errors.email ? "border-red-500" : "border-[#838280]"
+                                                className={`w-full h-[57px] bg-transparent border-[0.5px] rounded-[10px] pl-5 pr-[120px] text-white text-[16px] tracking-[-0.05em] placeholder:text-white/50 focus:border-[#FFCD01] focus:outline-none transition-colors ${errors.email ? "border-red-500" : "border-[#838280]"
                                                     }`}
                                             />
-                                            {errors.email && (
-                                                <div className="absolute right-5 top-1/2 -translate-y-1/2 flex items-center justify-center w-6 h-6 bg-red-600 rounded-full">
-                                                    <span className="text-white text-[14px] font-bold">!</span>
-                                                </div>
-                                            )}
+                                            <div className="absolute right-5 top-1/2 -translate-y-1/2 flex items-center gap-3">
+                                                {errors.email ? (
+                                                    <div className="flex items-center justify-center w-6 h-6 bg-red-600 rounded-full">
+                                                        <span className="text-white text-[14px] font-bold">!</span>
+                                                    </div>
+                                                ) : isEmailVerified ? (
+                                                    <span className="text-[#2B9F5A] text-[16px] font-medium">
+                                                        Verified
+                                                    </span>
+                                                ) : (
+                                                    <button
+                                                        type="button"
+                                                        onClick={handleVerifyEmail}
+                                                        className="text-[#FFCD01] text-[16px] font-medium hover:underline transition-all"
+                                                    >
+                                                        {isEmailSent ? "Check Mail" : "Verify Email"}
+                                                    </button>
+                                                )}
+                                            </div>
                                         </div>
+                                        {isEmailVerified && !errors.email && (
+                                            <div className="mt-4 flex items-center gap-3">
+                                                <div className="w-6 h-6 rounded-full border-2 border-[#2B9F5A] flex items-center justify-center">
+                                                    <Icon icon="mdi:check" className="w-4 h-4 text-[#2B9F5A]" />
+                                                </div>
+                                                <p className="text-white text-[14px] md:text-[16px] leading-[20px] tracking-[-0.05em]">
+                                                    Your email has been successfully verified.
+                                                </p>
+                                            </div>
+                                        )}
+                                        {isEmailSent && !isEmailVerified && !errors.email && (
+                                            <div className="mt-4 flex items-start gap-3">
+                                                <Icon icon="mingcute:information-line" className="w-6 h-6 text-[#FFCD01] flex-shrink-0 mt-0.5" />
+                                                <p className="text-white text-[14px] md:text-[16px] leading-[20px] tracking-[-0.05em]">
+                                                    Check your inbox! We've sent a verification email to{" "}
+                                                    <span className="text-[#FFCD01]">{formData.email}</span>. If you haven't received it,
+                                                    please check your email address.
+                                                </p>
+                                            </div>
+                                        )}
                                     </div>
 
                                     {/* Full Name */}
                                     <div className="flex flex-col gap-2">
                                         <div className="flex justify-between items-center">
                                             <label className="text-white text-[18px] md:text-[20px] leading-[22px] tracking-[-0.05em]">
-                                                Your Full Name<span className="text-[#FFCD01]">*</span>
+                                                Your Full Name<span className="text-[#FF0000]">*</span>
                                             </label>
                                             {errors.fullName && (
                                                 <span className="text-red-500 text-[14px] md:text-[16px] tracking-[-0.05em]">
@@ -284,7 +376,7 @@ const SignupPage = () => {
                                     <div className="flex flex-col gap-2">
                                         <div className="flex justify-between items-center">
                                             <label className="text-white text-[18px] md:text-[20px] leading-[22px] tracking-[-0.05em]">
-                                                Username<span className="text-[#FFCD01]">*</span>
+                                                Username<span className="text-[#FF0000]">*</span>
                                             </label>
                                             {errors.username && (
                                                 <span className="text-red-500 text-[14px] md:text-[16px] tracking-[-0.05em]">
@@ -310,33 +402,52 @@ const SignupPage = () => {
                                         </div>
                                     </div>
 
-                                    {/* Country/Region */}
-                                    <div className="flex flex-col gap-2">
+                                    <div className="flex flex-col gap-2 relative">
                                         <label className="text-white text-[18px] md:text-[20px] leading-[22px] tracking-[-0.05em]">
-                                            Country/Region<span className="text-[#FFCD01]">*</span>
+                                            Country/Region<span className="text-[#FF0000]">*</span>
                                         </label>
-                                        <div className="relative w-full h-[57px] bg-transparent border-[0.5px] border-[#838280] rounded-[10px] px-5 flex items-center gap-3">
-                                            {/* UAE Flag */}
-                                            <div className="w-[16px] h-[12px] relative overflow-hidden flex-shrink-0">
-                                                <div className="absolute inset-0 top-0 bottom-[66.67%] bg-[#2B9F5A]" />
-                                                <div className="absolute inset-0 top-[33.33%] bottom-[33.33%] bg-[#F5F8FB]" />
-                                                <div className="absolute inset-0 top-[66.67%] bg-[#272727]" />
-                                                <div className="absolute inset-0 right-[68.75%] bg-[#DC251C]" />
-                                            </div>
-                                            {/* Separator Line */}
+                                        <div
+                                            onClick={() => {
+                                                setIsOriginDropdownOpen(!isOriginDropdownOpen);
+                                            }}
+                                            className="relative w-full h-[57px] bg-transparent border-[0.5px] border-[#838280] rounded-[10px] px-5 flex items-center gap-3 cursor-pointer hover:border-[#FFCD01] transition-colors"
+                                        >
+                                            <Icon icon={`circle-flags:${originCountry.code}`} className="w-5 h-5 flex-shrink-0" />
                                             <div className="w-[1px] h-[10px] bg-white opacity-50 flex-shrink-0" />
-                                            <span className="text-white/50 text-[16px] tracking-[-0.05em] truncate">
-                                                Eg: United Arab Emirates
+                                            <span className="text-white text-[16px] tracking-[-0.05em] truncate">
+                                                {originCountry.name}
                                             </span>
-                                            <span className="ml-auto text-white/50 text-[16px] tracking-[-0.05em]">▼</span>
+                                            <Icon
+                                                icon="mdi:chevron-down"
+                                                className={`ml-auto text-white/50 w-5 h-5 transition-transform ${isOriginDropdownOpen ? 'rotate-180' : ''}`}
+                                            />
                                         </div>
+
+                                        {isOriginDropdownOpen && (
+                                            <div className="absolute top-full left-0 right-0 mt-2 bg-[#1A1A1A] border border-[#838280] rounded-[10px] py-2 z-50 max-h-[300px] overflow-y-auto scrollbar-thin scrollbar-thumb-[#FFCD01]">
+                                                {allCountries.map((country) => (
+                                                    <div
+                                                        key={country.code}
+                                                        onClick={() => {
+                                                            setOriginCountry(country);
+                                                            setFormData(prev => ({ ...prev, country: country.name }));
+                                                            setIsOriginDropdownOpen(false);
+                                                        }}
+                                                        className="px-5 py-3 flex items-center gap-3 hover:bg-white/10 cursor-pointer transition-colors"
+                                                    >
+                                                        <Icon icon={`circle-flags:${country.code}`} className="w-5 h-5 flex-shrink-0" />
+                                                        <span className="text-white text-[16px]">{country.name}</span>
+                                                    </div>
+                                                ))}
+                                            </div>
+                                        )}
                                     </div>
 
                                     {/* Mobile Number */}
                                     <div className="flex flex-col gap-2">
                                         <div className="flex justify-between items-center">
                                             <label className="text-white text-[18px] md:text-[20px] leading-[22px] tracking-[-0.05em]">
-                                                Mobile Number<span className="text-[#FFCD01]">*</span>
+                                                Mobile Number<span className="text-[#FF0000]">*</span>
                                             </label>
                                             {errors.mobileNumber && (
                                                 <span className="text-red-500 text-[14px] md:text-[16px] tracking-[-0.05em]">
@@ -346,24 +457,13 @@ const SignupPage = () => {
                                         </div>
                                         <div className={`relative w-full h-[57px] bg-transparent border-[0.5px] rounded-[10px] px-5 flex items-center gap-3 transition-colors ${errors.mobileNumber ? "border-red-500" : "border-[#838280]"
                                             }`}>
-                                            {/* UAE Flag */}
-                                            <div className="w-[16px] h-[12px] relative overflow-hidden flex-shrink-0">
-                                                <div className="absolute inset-0 top-0 bottom-[66.67%] bg-[#2B9F5A]" />
-                                                <div className="absolute inset-0 top-[33.33%] bottom-[33.33%] bg-[#F5F8FB]" />
-                                                <div className="absolute inset-0 top-[66.67%] bg-[#272727]" />
-                                                <div className="absolute inset-0 right-[68.75%] bg-[#DC251C]" />
-                                            </div>
-                                            {/* Separator Line */}
-                                            <div className="w-[1px] h-[10px] bg-white opacity-50 flex-shrink-0" />
-                                            <span className="text-white/50 text-[16px] tracking-[-0.05em]">▼</span>
-                                            <span className="text-white text-[16px] tracking-[-0.05em]">+971</span>
-                                            <input
-                                                type="tel"
-                                                name="mobileNumber"
+                                            <PhoneInput
+                                                international
+                                                defaultCountry="AE"
                                                 value={formData.mobileNumber}
-                                                onChange={handleInputChange}
-                                                placeholder="Type your number here..."
-                                                className="flex-1 bg-transparent text-white text-[16px] tracking-[-0.05em] placeholder:text-white/50 focus:outline-none"
+                                                onChange={(value) => setFormData(prev => ({ ...prev, mobileNumber: value || "" }))}
+                                                placeholder="Mobile Number"
+                                                className="phone-input-custom signup-phone-input flex-1"
                                             />
                                             {errors.mobileNumber && (
                                                 <div className="flex items-center justify-center w-6 h-6 bg-red-600 rounded-full flex-shrink-0">
@@ -377,7 +477,7 @@ const SignupPage = () => {
                                     <div className="flex flex-col gap-2">
                                         <div className="flex justify-between items-center">
                                             <label className="text-white text-[18px] md:text-[20px] leading-[22px] tracking-[-0.05em]">
-                                                Password<span className="text-[#FFCD01]">*</span>
+                                                Password<span className="text-[#FF0000]">*</span>
                                             </label>
                                             {errors.password && (
                                                 <span className="text-red-500 text-[14px] md:text-[16px] tracking-[-0.05em]">
@@ -422,7 +522,7 @@ const SignupPage = () => {
                                     <div className="flex flex-col gap-2">
                                         <div className="flex justify-between items-center">
                                             <label className="text-white text-[18px] md:text-[20px] leading-[22px] tracking-[-0.05em]">
-                                                Confirm Password<span className="text-[#FFCD01]">*</span>
+                                                Confirm Password<span className="text-[#FF0000]">*</span>
                                             </label>
                                             {errors.confirmPassword && (
                                                 <span className="text-red-500 text-[14px] md:text-[16px] tracking-[-0.05em]">
@@ -446,16 +546,6 @@ const SignupPage = () => {
                                                         <span className="text-white text-[14px] font-bold">!</span>
                                                     </div>
                                                 )}
-                                                <button
-                                                    type="button"
-                                                    onClick={() => setShowConfirmPassword(!showConfirmPassword)}
-                                                    className="flex items-center gap-2 text-white hover:text-[#FFCD01] transition-colors"
-                                                >
-                                                    <Icon
-                                                        icon={showConfirmPassword ? "mdi:eye-off" : "mdi:eye"}
-                                                        className="w-5 h-5"
-                                                    />
-                                                </button>
                                             </div>
                                         </div>
                                     </div>
@@ -492,7 +582,13 @@ const SignupPage = () => {
                                     </div>
 
                                     {/* Terms Agreement */}
-                                    <div className="w-full py-5 border-[0.5px] border-dashed border-[#838280] rounded-[20px] text-center">
+                                    <div
+                                        className="w-full md:w-[400px] h-[80px] mx-auto flex items-center justify-center rounded-[20px] text-center"
+                                        style={{
+                                            boxSizing: 'border-box',
+                                            backgroundImage: `url("data:image/svg+xml,%3csvg width='100%25' height='100%25' xmlns='http://www.w3.org/2000/svg'%3e%3crect width='100%25' height='100%25' fill='none' rx='20' ry='20' stroke='%23838280' stroke-width='1' stroke-dasharray='7%2c 7' stroke-dashoffset='0' stroke-linecap='square'/%3e%3c/svg%3e")`,
+                                        }}
+                                    >
                                         <p className="text-white text-[14px] md:text-[16px] leading-[20px] tracking-[-0.05em] px-4">
                                             By creating an account, you agree to the{" "}
                                             <Link href="/terms" className="underline hover:text-[#FFCD01] transition-colors">
