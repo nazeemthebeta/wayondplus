@@ -62,7 +62,7 @@ const SuccessContent = () => {
                     </div>
 
                     <p className="mt-8 text-white text-[16px] tracking-[-0.05em]">
-                        Or check the <Link href="/checkout" className="text-white font-bold underline hover:text-[#FFCD01] transition-colors">subscription plan</Link>
+                        Or check the <Link href="/pricing" className="text-white font-bold underline hover:text-[#FFCD01] transition-colors">subscription plan</Link>
                     </p>
                 </div>
             </div>

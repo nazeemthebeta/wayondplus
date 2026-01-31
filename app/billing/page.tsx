@@ -37,6 +37,12 @@ const BillingPage = () => {
             icons: ["logos:apple-pay"],
             description: "Pay with my Apple Pay.",
         },
+        {
+            id: "googlepay",
+            title: "Google Pay",
+            icons: ["logos:google-pay"],
+            description: "Pay with my Google Pay.",
+        },
     ];
 
     return (
@@ -123,20 +129,7 @@ const BillingPage = () => {
                                                 </div>
                                             </div>
 
-                                            {/* Extra Content for Selected Option */}
-                                            {paymentMethod === option.id && option.id === "crypto" && (
-                                                <div className="mt-6 pt-6 border-t border-white/10">
-                                                    <p className="text-[13px] opacity-70 mb-4 leading-relaxed">
-                                                        By purchasing this subscription and clicking "continue", you agree to the terms of service, auto-renewal terms, electronic document delivery, and acknowledge the privacy policy.
-                                                    </p>
-                                                    <button
-                                                        onClick={() => router.push("/payment-success")}
-                                                        className="w-full h-[45px] bg-white text-black rounded-[10px] font-bold text-[15px] hover:bg-[#FFCD01] transition-colors"
-                                                    >
-                                                        Pay by Crypto
-                                                    </button>
-                                                </div>
-                                            )}
+
                                         </div>
                                     ))}
                                 </div>
@@ -153,51 +146,70 @@ const BillingPage = () => {
                             <div className="absolute inset-0 rounded-[30px] bg-[linear-gradient(135deg,rgba(255,255,255,0.10),rgba(255,255,255,0.02),transparent_55%)] pointer-events-none" />
 
                             <div className="relative z-10 p-6 md:p-10 flex flex-col h-full">
-                                {/* Card Form */}
-                                <div className="space-y-6">
-                                    <div className="flex flex-col gap-2">
-                                        <label className="text-[16px] md:text-[18px] opacity-80 tracking-[-0.05em]">Card Name</label>
-                                        <input
-                                            type="text"
-                                            placeholder="jhondoesamplemail@gmail.com"
-                                            className="w-full h-[55px] bg-transparent border-[0.5px] border-[#838280] rounded-[10px] px-5 text-white/50 text-[16px] focus:border-[#FFCD01] focus:outline-none transition-colors"
-                                        />
-                                    </div>
+                                {paymentMethod === 'card' ? (
+                                    /* Card Form */
+                                    <div className="space-y-6">
+                                        <div className="flex flex-col gap-2">
+                                            <label className="text-[16px] md:text-[18px] opacity-80 tracking-[-0.05em]">Card Name</label>
+                                            <input
+                                                type="text"
+                                                placeholder="jhondoesamplemail@gmail.com"
+                                                className="w-full h-[55px] bg-transparent border-[0.5px] border-[#838280] rounded-[10px] px-5 text-white/50 text-[16px] focus:border-[#FFCD01] focus:outline-none transition-colors"
+                                            />
+                                        </div>
 
-                                    <div className="flex flex-col gap-2">
-                                        <div className="flex justify-between items-center">
-                                            <label className="text-[16px] md:text-[18px] opacity-80 tracking-[-0.05em]">Card Number</label>
-                                            <div className="flex gap-2">
-                                                <Icon icon="logos:visa" className="w-8 h-4 object-contain" />
-                                                <Icon icon="logos:mastercard" className="w-8 h-4 object-contain" />
+                                        <div className="flex flex-col gap-2">
+                                            <div className="flex justify-between items-center">
+                                                <label className="text-[16px] md:text-[18px] opacity-80 tracking-[-0.05em]">Card Number</label>
+                                                <div className="flex gap-2">
+                                                    <Icon icon="logos:visa" className="w-8 h-4 object-contain" />
+                                                    <Icon icon="logos:mastercard" className="w-8 h-4 object-contain" />
+                                                </div>
+                                            </div>
+                                            <input
+                                                type="text"
+                                                placeholder="Jhon Doe"
+                                                className="w-full h-[55px] bg-transparent border-[0.5px] border-[#838280] rounded-[10px] px-5 text-white/50 text-[16px] focus:border-[#FFCD01] focus:outline-none transition-colors"
+                                            />
+                                        </div>
+
+                                        <div className="grid grid-cols-2 gap-4">
+                                            <div className="flex flex-col gap-2">
+                                                <label className="text-[16px] md:text-[18px] opacity-80 tracking-[-0.05em]">Expiry Date</label>
+                                                <input
+                                                    type="text"
+                                                    placeholder="MM / YY"
+                                                    className="w-full h-[55px] bg-transparent border-[0.5px] border-[#838280] rounded-[10px] px-5 text-white/50 text-[16px] focus:border-[#FFCD01] focus:outline-none transition-colors text-center"
+                                                />
+                                            </div>
+                                            <div className="flex flex-col gap-2">
+                                                <label className="text-[16px] md:text-[18px] opacity-80 tracking-[-0.05em]">Security code</label>
+                                                <input
+                                                    type="text"
+                                                    placeholder="CVV"
+                                                    className="w-full h-[55px] bg-transparent border-[0.5px] border-[#838280] rounded-[10px] px-5 text-white/50 text-[16px] focus:border-[#FFCD01] focus:outline-none transition-colors text-center"
+                                                />
                                             </div>
                                         </div>
-                                        <input
-                                            type="text"
-                                            placeholder="Jhon Doe"
-                                            className="w-full h-[55px] bg-transparent border-[0.5px] border-[#838280] rounded-[10px] px-5 text-white/50 text-[16px] focus:border-[#FFCD01] focus:outline-none transition-colors"
-                                        />
                                     </div>
-
-                                    <div className="grid grid-cols-2 gap-4">
-                                        <div className="flex flex-col gap-2">
-                                            <label className="text-[16px] md:text-[18px] opacity-80 tracking-[-0.05em]">Expiry Date</label>
-                                            <input
-                                                type="text"
-                                                placeholder="MM / YY"
-                                                className="w-full h-[55px] bg-transparent border-[0.5px] border-[#838280] rounded-[10px] px-5 text-white/50 text-[16px] focus:border-[#FFCD01] focus:outline-none transition-colors text-center"
-                                            />
+                                ) : (
+                                    /* Other Payment Methods Header */
+                                    <div className="flex flex-col items-center justify-center py-10 gap-6">
+                                        <div className="flex items-center gap-4">
+                                            {paymentOptions.find(o => o.id === paymentMethod)?.icons.map((icon, idx) => (
+                                                <Icon key={idx} icon={icon} className="w-16 h-16" />
+                                            ))}
                                         </div>
-                                        <div className="flex flex-col gap-2">
-                                            <label className="text-[16px] md:text-[18px] opacity-80 tracking-[-0.05em]">Security code</label>
-                                            <input
-                                                type="text"
-                                                placeholder="CVV"
-                                                className="w-full h-[55px] bg-transparent border-[0.5px] border-[#838280] rounded-[10px] px-5 text-white/50 text-[16px] focus:border-[#FFCD01] focus:outline-none transition-colors text-center"
-                                            />
+                                        <div className="text-center">
+                                            <h3 className="text-[24px] font-bold tracking-tight">
+                                                Pay with {paymentOptions.find(o => o.id === paymentMethod)?.title}
+                                            </h3>
+                                            <p className="text-white/60 mt-2">
+                                                You will be redirected to complete your purchase securely.
+                                            </p>
                                         </div>
                                     </div>
-                                </div>
+                                )}
 
                                 <div className="w-full h-[0.5px] bg-white/10 my-8" />
 
@@ -250,9 +262,9 @@ const BillingPage = () => {
 
                                 <button
                                     onClick={() => router.push("/payment-success")}
-                                    className="mt-8 w-full max-w-[300px] h-[55px] mx-auto bg-white text-black text-[17px] font-bold rounded-[12px] hover:bg-[#FFCD01] transition-colors flex items-center justify-center"
+                                    className="mt-8 w-full max-w-[300px] h-[55px] mx-auto bg-white text-black text-[17px] font-bold rounded-[12px] hover:bg-[#FFCD01] transition-colors flex items-center justify-center capitalize"
                                 >
-                                    Make Payment
+                                    {paymentMethod === 'card' ? 'Make Payment' : `Pay by ${paymentMethod}`}
                                 </button>
                             </div>
                         </div>
